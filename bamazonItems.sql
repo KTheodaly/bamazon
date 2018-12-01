@@ -1,18 +1,15 @@
-CREATE DATABASE Bamazon;
+CREATE DATABASE bamazon;
 
--- Step 3 - use database create a table
-USE Bamazon;
+USE bamazon;
 
 CREATE TABLE `Products` (
 	`ItemId` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`ItemName` VARCHAR(100) NULL,
-	`DepartmentName` VARCHAR(100) NULL,
+	`ItemName` VARCHAR(255) NULL,
+	`DepartmentName` VARCHAR(255) NULL,
 	`Price` DECIMAL(10,2) NULL,
 	`StockQuantity` INT NULL
 );
 
-
--- Step 4 - insert data into the table created in step 3
 INSERT INTO Products (ItemName, DepartmentName, Price, StockQuantity) 
 VALUES 
 ('Hat', 'Apparel', 9.00, 10),

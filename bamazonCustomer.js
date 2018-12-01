@@ -1,20 +1,22 @@
-const mysql = require('mysql');
-const inquirer = require('inquirer');
-const prompt = require('prompt');
-const filesystem = require('fs');
-const bamazon = require("./bamazonItems.sql");
 
-const connection = mysql.createConnection({
+var mysql = require("mysql");
+var inquirer = require("inquirer");
+var bamazon = require("./bamazonItems.sql");
+
+var connection = mysql.createConnection({
     host: "localhost",
+
     port: 3306,
     user: "root",
-    password: "",
-    database: "Bamazon"
+
+    // Your password
+    password: "Hotdog18!",
+    database: "bamazon"
 });
 
 connection.connect(function (err) {
     if (err) throw err;
-    console.log("connected as id " + connection.threadId);
+    console.log("connected on PORT " + connection.port);
 });
 
 buyItem();
@@ -24,7 +26,7 @@ function buyItem() {
 
 
         for (var i = 0; i < res.length; i++) {
-            console.log('Item: ' + res[i].ItemName + ' | Price: ' + res[i].Price + ' | Stock: ' + res[i].StockQuantity);
+            console.log('Item: ' + res[i].ItemName + ' /n Price: ' + res[i].Price + ' /n Stock: ' + res[i].StockQuantity);
         }
 
         inquirer.prompt([{
@@ -79,8 +81,6 @@ function buyItem() {
     });
 
 }
-
-
 
 
 function again() {
