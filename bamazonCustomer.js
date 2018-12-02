@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
     port: 3306,
     user: "root",
     password: "",
-    database: "bamazon"
+    database: "bamazon",
 });
 
 connection.connect(function (err) {
@@ -18,7 +18,7 @@ connection.connect(function (err) {
 });
 
 function buyItem() {
-    connection.query('SELECT * FROM Items', function (err, res) {
+    connection.query('SELECT * FROM Products', function (err, res) {
 
 
         for (var i = 0; i < res.length; i++) {
@@ -44,11 +44,10 @@ function buyItem() {
                     type: "input",
                     message: "How many would you like to buy?",
                     validate: function (value) {
-                        if (isNaN(value) == false) {
+                        if (isNaN(value) === false) {
                             return true;
-                        } else {
-                            return false;
                         }
+                        return false;
                     }
                 }
             ])
@@ -89,7 +88,7 @@ function again() {
         name: "repurchase",
         type: "list",
         choices: ["Yes", "No"],
-        message: "Would you like to purchase other items?"
+        message: "Would you like to purchase other items?",
     }).then(function (answer) {
         if (answer.repurchase == "Yes") {
             buyItem();
