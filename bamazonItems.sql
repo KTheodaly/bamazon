@@ -1,13 +1,14 @@
+DROP DATABASE IF EXISTS bamazon;
 CREATE DATABASE bamazon;
 
 USE bamazon;
 
-CREATE TABLE `Products` (
-	`ItemId` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`ItemName` VARCHAR(255) NULL,
-	`DepartmentName` VARCHAR(255) NULL,
-	`Price` DECIMAL(10,2) NULL,
-	`StockQuantity` INT NULL
+CREATE TABLE Products (
+	ItemId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	ItemName VARCHAR(255) NULL,
+	DepartmentName VARCHAR(255) NULL,
+	Price DECIMAL(10,2) NULL,
+	StockQuantity INT NULL
 );
 
 INSERT INTO Products (ItemName, DepartmentName, Price, StockQuantity) 
