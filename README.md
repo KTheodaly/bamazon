@@ -24,10 +24,14 @@ This is an Amazon-like storefront with MySQL. The app will take in orders from c
 
 3. A Node application called `bamazonCustomer.js` will first display all of the items available for sale. Including the ids, names, and prices of products for sale.
 
+![bamazon choices](./assets/purchaseoptions.JPG)
+
 4. The app should then prompt users with two messages.
 
    * The first should ask them the ID of the product they would like to buy.
    * The second message should ask how many units of the product they would like to buy.
+
+![bamazon purchase](./assets/purchasechoice.JPG)
 
 5. Once the customer has placed the order, the application should check if your store has enough of the product to meet the customer's request.
 
