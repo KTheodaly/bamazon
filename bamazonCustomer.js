@@ -1,9 +1,9 @@
 
-const mysql = require("mysql");
-const inquirer = require("inquirer");
+let mysql = require("mysql");
+let inquirer = require("inquirer");
 
 
-const connection = mysql.createConnection({
+let connection = mysql.createConnection({
     host: "localhost",
 
     port: 3306,
@@ -21,18 +21,18 @@ function buyItem() {
     connection.query('SELECT * FROM Products', function (err, res) {
 
 
-        for (const i = 0; i < res.length; i++) {
+        for (let i = 0; i < res.length; i++) {
             console.log('Item: ' + res[i].ItemName + ' \n Price: ' + res[i].Price + ' \n Stock: ' + res[i].StockQuantity);
         }
-        //these prompts look weird? figure out the line breaks
+
         inquirer.prompt([
             {
                 name: "choice",
                 type: "rawlist",
                 message: "What would you like to buy?",
                 choices: function (value) {
-                    const choiceArray = [];
-                    for (const i = 0; i < res.length; i++) {
+                    let choiceArray = [];
+                    for (let i = 0; i < res.length; i++) {
                         choiceArray.push(res[i].ItemName);
                     }
                     return choiceArray;
@@ -49,14 +49,14 @@ function buyItem() {
                     return false;
                 }
             }
-        ])
+        ]) //code stops working here: need to get the items depricating
             .then(function (answer) {
-                for (const i = 0; i < res.length; i++) {
-                    if (res[i].ItemName == answer.choice) {
-                        const chosenItem = res[i];
-                    }
+                //for (let i = 0; i < res.length; i++) {
+                if (res[i].ItemName == answer.choice) {
+                    let chosenItem = res[i];
                 }
-                const updateStock = +chosenItem.StockQuantity - +answer.quantity;
+                //}
+                let updateStock = +chosenItem.StockQuantity - +answer.quantity;
 
                 if (chosenItem.StockQuantity < +answer.quantity) {
                     console.log("Insufficient quantity!");
@@ -68,7 +68,7 @@ function buyItem() {
                     connection.query("UPDATE Items SET ? WHERE ?", [{ StockQuantity: updateStock }, { ItemId: chosenItem.ItemId }], function (err, res) {
                         console.log("Purchase successful!");
 
-                        const Total = +answer.quantity * chosenItem.Price.toFixed(2);
+                        let Total = +answer.quantity * chosenItem.Price.toFixed(2);
                         console.log("Your total is $" + Total);
 
                         buyAgain();
@@ -79,7 +79,6 @@ function buyItem() {
     });
 
 }
-
 
 function buyAgain() {
     inquirer.prompt({
