@@ -49,49 +49,49 @@ function buyItem() {
                     return false;
                 }
             }
-        ]) //code stops working here: need to get the items depricating
+        ]) //code stops working here, does not update the total items remaining
             .then(function (answer) {
-                //for (let i = 0; i < res.length; i++) {
-                if (res[i].ItemName == answer.choice) {
-                    let chosenItem = res[i];
-                }
-                //}
-                let updateStock = +chosenItem.StockQuantity - +answer.quantity;
+                for (var i = 0; i < res.length; i++) {
+                    if (res[i].ItemName == answer.choice) {
+                        var chosenItem = res[i];
+                    }
+                    //it says buy again is not defined but I know it is, tried to move within this scope, by putting higher up but then the "purchase successful" stops working
+                    let updateStock = +(chosenItem.StockQuantity) - +(answer.quantity);
 
-                if (chosenItem.StockQuantity < +answer.quantity) {
-                    console.log("Insufficient quantity!");
-
-                    buyAgain();
-                }
-
-                else {
-                    connection.query("UPDATE Items SET ? WHERE ?", [{ StockQuantity: updateStock }, { ItemId: chosenItem.ItemId }], function (err, res) {
-                        console.log("Purchase successful!");
-
-                        let Total = +answer.quantity * chosenItem.Price.toFixed(2);
-                        console.log("Your total is $" + Total);
+                    if (+(chosenItem.StockQuantity) < +(answer.quantity)) {
+                        console.log("Insufficient quantity!");
 
                         buyAgain();
-                    });
+                    }
+
+                    else {
+                        connection.query("UPDATE Items SET ? WHERE ?", [{ StockQuantity: updateStock }, { ItemId: chosenItem.ItemId }], function (err, res) {
+                            console.log("Purchase successful!");
+
+                            var Total = +answer.quantity * chosenItem.Price.toFixed(2);
+                            console.log("Your total is $" + Total);
+
+                            buyAgain();
+                        });
+                    }
+                };
+            },
+            )
+
+    },
+        function buyAgain() {
+            inquirer.prompt({
+                name: "buyAgain",
+                type: "list",
+                choices: ["Yes", "No"],
+                message: "Would you like to purchase other items?",
+            }).then(function (answer) {
+                if (answer.repurchase == "Yes") {
+                    buyItem();
+                }
+                else {
+                    console.log("Thanks for shopping. Have a great day!")
                 }
             });
-
-    });
-
-}
-
-function buyAgain() {
-    inquirer.prompt({
-        name: "repurchase",
-        type: "list",
-        choices: ["Yes", "No"],
-        message: "Would you like to purchase other items?",
-    }).then(function (answer) {
-        if (answer.repurchase == "Yes") {
-            buyItem();
-        }
-        else {
-            console.log("Thanks for shopping. Have a great day!")
-        }
-    });
+        })
 }
