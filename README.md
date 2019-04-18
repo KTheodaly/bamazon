@@ -24,7 +24,7 @@ This is an Amazon-like storefront with MySQL. The app will take in orders from c
 
 3. A Node application called `bamazonCustomer.js` will first display all of the items available for sale. Including the ids, names, and prices of products for sale.
 
-![bamazon choices](./assets/purchaseoptions.JPG)
+![bamazon choices](./assets/purchaseoptions.JPG = 100x33)
 
 4. The app should then prompt users with two messages.
 
@@ -43,5 +43,6 @@ This is an Amazon-like storefront with MySQL. The app will take in orders from c
 ![bamazon result](./assets/successtotal.JPG)
 ## What is this database for, who will use it?
 
-* This is for classwork Node.js & MySQL but anyone is welcome to look at the code
+* This is for classwork Node.js & MySQL but anyone is welcome to look at the code!
+
 
